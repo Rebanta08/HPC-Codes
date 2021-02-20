@@ -1,0 +1,23 @@
+Writeable mode:
+singularity exec --overlay /scratch/rr3659/myfiles/pytorch1.7.0-cuda11.0-1.ext3:ro --overlay /scratch/rr3659/myfiles/pytorch1.7.0-cuda11.0-2.ext3:ro /scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif /bin/bash
+/bin/bash
+source /ext3/env.sh
+
+Readable mode:
+singularity exec --overlay /scratch/rr3659/myfiles/pytorch1.7.0-cuda11.0-1.ext3:ro --overlay /scratch/rr3659/myfiles/pytorch1.7.0-cuda11.0-2.ext3:ro /scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif /bin/bash -c "source /ext3/env.sh; which python; python --version"
+/ext3/miniconda3/bin/python
+
+Send code:
+sbatch t1.SBATCH
+cat slurm-######.out OR see on the left hand side tab.
+
+Recover any of the pytorch:
+[rr3659@cs001 myfiles]$ pwd
+/scratch/rr3659/myfiles
+[rr3659@cs001 myfiles]$ cp -rp /scratch/work/public/overlay-fs-ext3/overlay-5GB-200K.ext3.gz .
+[rr3659@cs001 myfiles]$ gunzip overlay-5GB-200K.ext3.gz 
+[rr3659@cs001 myfiles]$ mv overlay-5GB-200K.ext3 pytorch1.7.0-cuda11.0-2.ext3 
+[rr3659@cs001 myfiles]$ ls -ltrsh pytorch1.7.0-cuda11.0-*
+5.5G -rw-r--r-- 1 rr3659 rr3659 5.5G Aug  6 21:17 pytorch1.7.0-cuda11.0-2.ext3
+5.5G -rw-r--r-- 1 rr3659 rr3659 5.5G Jan  2 17:52 pytorch1.7.0-cuda11.0-1.ext3
+[rr3659@cs001 myfiles]$ 
